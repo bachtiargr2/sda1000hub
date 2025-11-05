@@ -24,7 +24,7 @@ export function CreateDataAirDialog({ pulauOptions, jenisDataOptions, statusOpti
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button variant="outline" size="sm">
-          <PlusIcon className="mr-2 h-4 w-4" /> Add Data Air Bersih
+          <PlusIcon className="mr-2 h-4 w-4" />Tambah Data Kelola Air Bersih
         </Button>
       </DialogTrigger>
 

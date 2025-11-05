@@ -24,7 +24,7 @@ export function CreateDataLimbahDialog({ pulauOptions, jenisDataOptions, statusO
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button variant="outline" size="sm">
-          <PlusIcon className="mr-2 h-4 w-4" /> Add Data Limbah
+          <PlusIcon className="mr-2 h-4 w-4" />Tambah Data Kelola Limbah
         </Button>
       </DialogTrigger>
 

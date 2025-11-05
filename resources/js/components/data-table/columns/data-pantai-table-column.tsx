@@ -77,13 +77,13 @@ export const columns = (pulauOptions: any, jenisDataOptions:any, statusOptions:a
                             </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end">
-                            <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                            <DropdownMenuLabel>Tindakan</DropdownMenuLabel>
                             <DropdownMenuSeparator />
                             <DropdownMenuItem onClick={() => { setShowUpdateTaskSheet(true) }}>
                                 Edit
                             </DropdownMenuItem>
                             <DropdownMenuItem onClick={() => { setShowDelete(true) }}>
-                                Delete
+                                Hapus
                             </DropdownMenuItem>
                         </DropdownMenuContent>
                     </DropdownMenu>
