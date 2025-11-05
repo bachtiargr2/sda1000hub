@@ -15,6 +15,7 @@ import PulauForm from "../forms/pulau-form"
 import pulau from "@/routes/pulau"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip"
 import { router } from "@inertiajs/react"
+import { toast } from "sonner"
 
 export function DownloadDialog({ nama, path }: any) {
     const [isPending, startTransition] = useTransition()
@@ -22,10 +23,10 @@ export function DownloadDialog({ nama, path }: any) {
 
     const handleDownload = () => {
         startTransition(() => {
-            const url = `/storage/${path}`;
-            window.open(url, '_blank')
-            // window.location.href = `/download/${path}/${nama}`;
-            setOpen(false)
+            const url = `/download/${path}/${nama}`;
+            window.location.href = url;
+            setOpen(false);
+            toast.success(`Dokumen "${nama}" sedang diunduh. Cek di folder Download.`)
         })
     }
   return (
@@ -40,16 +41,19 @@ export function DownloadDialog({ nama, path }: any) {
               </Button>
             </DialogTrigger>
           </TooltipTrigger>
-          <TooltipContent>{nama}</TooltipContent>
+          <TooltipContent>Klik untuk Mengunduh</TooltipContent>
         </Tooltip>
       </TooltipProvider>
 
       <DialogContent>
         <DialogHeader>
-            <DialogTitle>Konfirmasi Unduhan</DialogTitle>
-            <DialogDescription>
-                Yakin ingin mengunduh dokumen <span className="font-medium">{nama}</span>?
-            </DialogDescription>
+            <DialogTitle><span className="text-muted-foreground">Unduh dokumen?</span></DialogTitle>
+                <DialogDescription>
+                    <p className="font-medium text-foreground">{nama}</p>
+                    <p className="pt-3 text-xs text-muted-foreground">
+                        Cek file di folder Download.setelah mengunduh
+                    </p>
+                </DialogDescription>
         </DialogHeader>
         <DialogFooter className="gap-2 sm:space-x-0">
             <DialogClose asChild>

@@ -31,8 +31,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::get('/master-data/jenis-data', [JenisDataController::class, 'index'])->name('jenis-data.index');
     Route::post('/master-data/jenis-data', [JenisDataController::class, 'store'])->name('jenis-data.store');
-    Route::put('/master-data/jenis-data/{pulau}', [JenisDataController::class, 'update'])->name('jenis-data.update');
-    Route::delete('/master-data/jenis-data/{pulau?}', [JenisDataController::class, 'destroy'])->name('jenis-data.delete');
+    Route::put('/master-data/jenis-data/{jenisData}', [JenisDataController::class, 'update'])->name('jenis-data.update');
+    Route::delete('/master-data/jenis-data/{jenisData?}', [JenisDataController::class, 'destroy'])->name('jenis-data.delete');
 
     Route::get('/master-data/unit-kerja', [UnitKerjaController::class, 'index'])->name('unit-kerja.index');
     Route::post('/master-data/unit-kerja', [UnitKerjaController::class, 'store'])->name('unit-kerja.store');

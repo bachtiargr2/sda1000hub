@@ -90,7 +90,6 @@ export const columns: ColumnDef<Pulau>[] = [
             <DropdownMenuContent align="end">
               <DropdownMenuLabel>Actions</DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>View Detail</DropdownMenuItem>
               <DropdownMenuItem onSelect={() => setShowUpdateTaskSheet(true)}>
                 Edit
               </DropdownMenuItem>

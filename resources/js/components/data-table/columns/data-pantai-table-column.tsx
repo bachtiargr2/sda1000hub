@@ -44,19 +44,6 @@ export const columns = (pulauOptions: any, jenisDataOptions:any, statusOptions:a
         header: "Status",
         cell: ({ row }) => <StatusColumn status={row.original?.status} />
     },
-    // {
-    //     accessorKey: 'created_at',
-    //     header: 'Tanggal Upload',
-    //     cell: ({ row }) => {
-    //         if (!row.original.created_at) return '-'
-    //         const date = new Date(row.original.created_at)
-    //         return date.toLocaleDateString('id-ID', {
-    //             year: 'numeric',
-    //             month: 'long',
-    //             day: 'numeric',
-    //         })
-    //     },
-    // },
     {
         id: 'actions',
         cell: ({ row }) => {
@@ -95,7 +82,7 @@ export const columns = (pulauOptions: any, jenisDataOptions:any, statusOptions:a
                             <DropdownMenuItem onClick={() => { setShowUpdateTaskSheet(true) }}>
                                 Edit
                             </DropdownMenuItem>
-                            <DropdownMenuItem>
+                            <DropdownMenuItem onClick={() => { setShowDelete(true) }}>
                                 Delete
                             </DropdownMenuItem>
                         </DropdownMenuContent>

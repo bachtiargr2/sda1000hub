@@ -71,10 +71,12 @@ export function DeleteDialog({
             )}
             <DialogContent>
                 <DialogHeader>
-                    <DialogTitle>Are you absolutely sure?</DialogTitle>
+                    <DialogTitle><span className="text-muted-foreground">Hapus pulau?</span></DialogTitle>
                     <DialogDescription>
-                        This action cannot be undone. This will permanently delete{" "}
-                        <span className="font-medium">{label}</span> from our servers.
+                        <p className="font-medium text-foreground">{label}</p>
+                        <p className="pt-3 text-xs text-muted-foreground">
+                        Setelah dihapus, data tidak dapat dikembalikan.
+                        </p>
                     </DialogDescription>
                 </DialogHeader>
                 <DialogFooter className="gap-2 sm:space-x-0">
