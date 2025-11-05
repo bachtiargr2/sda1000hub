@@ -41,7 +41,7 @@ class DataPantaiController extends Controller
             'id_pulau' => 'required|exists:mst_pulau,id',
             'id_jenis_data' => 'required|exists:jenis_data,id',
             'tahun' => 'required|integer',
-            'dokumen' => 'nullable|file|mimes:pdf,doc,docx,xls,xlsx,jpg,jpeg,png|max:51200', // maks 50 MB
+            'dokumen' => 'nullable|file|mimes:pdf,doc,docx,xls,xlsx',
             'status' => 'nullable|integer|exists:statuses,id',
         ]);
 
@@ -64,7 +64,7 @@ class DataPantaiController extends Controller
             'id_pulau' => 'required|exists:mst_pulau,id',
             'id_jenis_data' => 'required|exists:jenis_data,id',
             'tahun' => 'required|integer',
-            'dokumen' => 'nullable|file|mimes:pdf,doc,docx,xls,xlsx,jpg,jpeg,png|max:51200', // maks 50 MB
+            'dokumen' => 'nullable|file|mimes:pdf,doc,docx,xls,xlsx',
             'status' => 'nullable|integer|exists:statuses,id',
         ]);
 
@@ -89,11 +89,25 @@ class DataPantaiController extends Controller
         return back()->with('success', 'Data pantai berhasil diperbarui');
     }
 
-    public function destroy($id)
+    public function destroy(Request $request, $pantai = null)
     {
-        $model = DataAnggaran::findOrFail($id);
-        $model->delete();
+        // $model = DataAnggaran::findOrFail($id);
+        // $model->delete();
 
-        return back()->with('success', 'Data pantai berhasil dihapus');
+        // return back()->with('success', 'Data pantai berhasil dihapus');
+        if ($pantai) {
+            $model = DataAnggaran::findOrFail($pantai);
+            $model->delete();
+
+            return redirect()->back()->with('success', 'Pantai berhasil dihapus');
+        }
+
+        $ids = $request->input('ids', []);
+        if (!empty($ids)) {
+            DataAnggaran::whereIn('id', $ids)->delete();
+            return redirect()->back()->with('success', 'Beberapa data Pantai berhasil dihapus');
+        }
+
+        return redirect()->back()->with('error', 'Tidak ada ID yang dipilih');
     }
 }

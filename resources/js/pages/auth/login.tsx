@@ -24,8 +24,8 @@ export default function Login({
 }: LoginProps) {
     return (
         <AuthLayout
-            title="Masuk ke Akun Anda"
-            description="Masukkan alamat email dan kata sandi untuk melanjutkan"
+            title="Log in to your account"
+            description="Enter your email and password below to log in"
         >
             <Head title="Log in" />
 
@@ -38,7 +38,7 @@ export default function Login({
                     <>
                         <div className="grid gap-6">
                             <div className="grid gap-2">
-                                <Label htmlFor="email">Alamat email</Label>
+                                <Label htmlFor="email">Email address</Label>
                                 <Input
                                     id="email"
                                     type="email"
@@ -54,14 +54,14 @@ export default function Login({
 
                             <div className="grid gap-2">
                                 <div className="flex items-center">
-                                    <Label htmlFor="password">Kata sandi</Label>
+                                    <Label htmlFor="password">Password</Label>
                                     {canResetPassword && (
                                         <TextLink
                                             href={request()}
                                             className="ml-auto text-sm"
                                             tabIndex={5}
                                         >
-                                            Lupa kata sandi?
+                                            Forgot password?
                                         </TextLink>
                                     )}
                                 </div>
@@ -83,7 +83,7 @@ export default function Login({
                                     name="remember"
                                     tabIndex={3}
                                 />
-                                <Label htmlFor="remember">Ingat saya</Label>
+                                <Label htmlFor="remember">Remember me</Label>
                             </div>
 
                             <Button
@@ -94,15 +94,15 @@ export default function Login({
                                 data-test="login-button"
                             >
                                 {processing && <Spinner />}
-                                Masuk
+                                Log in
                             </Button>
                         </div>
 
                         {canRegister && (
                             <div className="text-center text-sm text-muted-foreground">
-                                Belum punya akun?{' '}
+                                Don't have an account?{' '}
                                 <TextLink href={register()} tabIndex={5}>
-                                    Register di sini
+                                    Sign up
                                 </TextLink>
                             </div>
                         )}

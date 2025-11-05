@@ -4,7 +4,7 @@ import { Checkbox } from '@/components/ui/checkbox'
 import { Button } from '@/components/ui/button'
 import { MoreHorizontal } from 'lucide-react'
 import { UpdateDataAirSheet } from '@/components/toolbar/update-data-air-sheet'
-import { DeleteDialog } from '@/components/toolbar/delete-data-air-dialog'
+import { DeleteDialog } from '@/components/toolbar/delete-dialog'
 import { useState } from 'react'
 import StatusColumn from '@/components/status-column'
 import { DownloadDialog } from '@/components/toolbar/download-dialog'
@@ -37,21 +37,45 @@ export const columns = (pulauOptions: any, jenisDataOptions: any, statusOptions:
         {
             accessorKey: 'dokumen_nama',
             header: 'Nama Dokumen',
-            cell: ({ row }) => <DownloadDialog nama={row.original?.dokumen_nama} path={row.original?.dokumen_path} />
+            cell: ({ row }) => (
+                <div className="max-w-52 whitespace-normal break-words">
+                    {row.getValue('dokumen_nama')}
+                </div>
+            )
         },
         {
             accessorKey: "status",
             header: "Status",
             cell: ({ row }) => <StatusColumn status={row.original?.status} />
         },
+        // {
+        //     accessorKey: 'updated_at',
+        //     header: 'Tanggal Upload',
+        //     cell: ({ row }) => {
+        //         if (!row.original.updated_at) return '-'
+        //         const date = new Date(row.original.updated_at)
+        //         return date.toLocaleDateString('id-ID', {
+        //             year: 'numeric',
+        //             month: 'long',
+        //             day: 'numeric',
+        //         })
+        //     },
+        // },
         {
             id: 'actions',
             cell: ({ row }) => {
+                const [showDownload, setShowDownload] = useState(false)
                 const [showUpdate, setShowUpdate] = useState(false)
                 const [showDelete, setShowDelete] = useState(false)
 
                 return (
                     <>
+                        <DownloadDialog
+                            open={showDownload}
+                            onOpenChange={setShowDownload}
+                            nama={row.original?.dokumen_nama}
+                            path={row.original?.dokumen_path}
+                        />
                         <UpdateDataAirSheet
                             open={showUpdate}
                             onOpenChange={setShowUpdate}
@@ -63,8 +87,8 @@ export const columns = (pulauOptions: any, jenisDataOptions: any, statusOptions:
                         <DeleteDialog
                             open={showDelete}
                             onOpenChange={setShowDelete}
-                            data={row.original.id}
-                            url="/data-air"
+                            items={row.original.id}
+                            url="/kelola-data/air"
                             label={row.original.dokumen_nama || 'Data Air'}
                             onSuccess={() => row.toggleSelected(false)}
                             showTrigger={false}
@@ -77,13 +101,16 @@ export const columns = (pulauOptions: any, jenisDataOptions: any, statusOptions:
                                 </Button>
                             </DropdownMenuTrigger>
                             <DropdownMenuContent align="end">
-                                <DropdownMenuLabel>Tindakan</DropdownMenuLabel>
+                                <DropdownMenuLabel>Actions</DropdownMenuLabel>
                                 <DropdownMenuSeparator />
+                                <DropdownMenuItem onClick={() => { setShowDownload(true) }}>
+                                    Download
+                                </DropdownMenuItem>
                                 <DropdownMenuItem onClick={() => { setShowUpdate(true) }}>
                                     Edit
                                 </DropdownMenuItem>
                                 <DropdownMenuItem onClick={() => { setShowDelete(true) }}>
-                                    Hapus
+                                    Delete
                                 </DropdownMenuItem>
                             </DropdownMenuContent>
                         </DropdownMenu>

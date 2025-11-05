@@ -14,9 +14,10 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog"
+import { deleteData } from "@/utils/delete"
 
 interface DeleteDialogProps extends React.ComponentPropsWithoutRef<typeof Dialog> {
-    data: number | number[]
+    items: number | number[]
     url: string
     label?: string
     onSuccess?: () => void
@@ -24,7 +25,7 @@ interface DeleteDialogProps extends React.ComponentPropsWithoutRef<typeof Dialog
 }
 
 export function DeleteDialog({
-    data,
+    items,
     url,
     label = "item",
     onSuccess,
@@ -32,30 +33,17 @@ export function DeleteDialog({
     ...props
 }: DeleteDialogProps) {
     const [isPending, startTransition] = useTransition()
-    const [open, setOpen] = useState(false)
 
     const handleDelete = () => {
         startTransition(() => {
-            if (Array.isArray(data)) {
-                router.delete(url, {
-                  data: { ids: data },
-                  onSuccess: () => {
-                    toast.success(`${data.length} ${label ?? "item"} deleted successfully`)
+            deleteData({
+                url,
+                items,
+                onSuccess: () => {
                     props.onOpenChange?.(false)
                     onSuccess?.()
-                  },
-                  onError: () => toast.error("Failed to delete"),
-                })
-              } else {
-                router.delete(`${url}/${data}`, {
-                  onSuccess: () => {
-                    toast.success(`${label ?? "Item"} deleted successfully`)
-                    props.onOpenChange?.(false)
-                    onSuccess?.()
-                  },
-                  onError: () => toast.error("Failed to delete"),
-                })
-            }
+                },
+            })
         })
     }
 

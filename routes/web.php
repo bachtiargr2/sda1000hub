@@ -13,9 +13,10 @@ use Inertia\Inertia;
 use Laravel\Fortify\Features;
 
 Route::get('/', function () {
-    return Inertia::render('welcome', [
-        'canRegister' => Features::enabled(Features::registration()),
-    ]);
+    // return Inertia::render('welcome', [
+    //     'canRegister' => Features::enabled(Features::registration()),
+    // ]);
+    return redirect()->route('login');
 })->name('home');
 
 Route::middleware(['auth', 'verified'])->group(function () {
@@ -42,7 +43,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/kelola-data/pantai', [DataPantaiController::class, 'index'])->name('kelola-data.pantai.index');
     Route::post('/kelola-data/pantai', [DataPantaiController::class, 'store'])->name('kelola-data.pantai.store');
     Route::put('/kelola-data/pantai/{dataPantai}', [DataPantaiController::class, 'update'])->name('kelola-data.pantai.update');
-    Route::delete('/kelola-data/pantai/{dataPantai?}', [DataPantaiController::class, 'destroy'])->name('kelola-data.pantai.delete');
+    Route::delete('/kelola-data/pantai/{pantai?}', [DataPantaiController::class, 'destroy'])->name('kelola-data.pantai.delete');
 
     Route::get('/kelola-data/limbah', [DataLimbahController::class, 'index'])->name('kelola-data.limbah.index');
     Route::post('/kelola-data/limbah', [DataLimbahController::class, 'store'])->name('kelola-data.limbah.store');

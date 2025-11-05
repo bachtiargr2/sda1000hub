@@ -40,7 +40,7 @@ class DataLimbahController extends Controller
             'id_pulau' => 'required|exists:mst_pulau,id',
             'id_jenis_data' => 'required|exists:jenis_data,id',
             'tahun' => 'required|integer',
-            'dokumen' => 'nullable|file|mimes:pdf,doc,docx,xls,xlsx,jpg,jpeg,png|max:51200', // maks 50 MB',
+            'dokumen' => 'nullable|file|mimes:pdf,doc,docx,xls,xlsx',
             'status' => 'nullable|integer|exists:statuses,id',
         ]);
 
@@ -63,7 +63,7 @@ class DataLimbahController extends Controller
             'id_pulau' => 'required|exists:mst_pulau,id',
             'id_jenis_data' => 'required|exists:jenis_data,id',
             'tahun' => 'required|integer',
-            'dokumen' => 'nullable|file|mimes:pdf,doc,docx,xls,xlsx,jpg,jpeg,png|max:51200', // maks 50 MB
+            'dokumen' => 'nullable|file|mimes:pdf,doc,docx,xls,xlsx',
             'status' => 'nullable|integer|exists:statuses,id',
         ]);
 
