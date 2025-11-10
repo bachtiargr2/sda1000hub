@@ -89,7 +89,7 @@ export default function Users() {
                                 fields={[
                                     { key: "name", label: "Nama", type: "text" },
                                     { key: "email", label: "Email", type: "text" },
-                                    { key: "role_id", label: "Jenis Data", type: "select", options: roleOptions },
+                                    { key: "role_id", label: "Role", type: "select", options: roleOptions },
                                 ]}
                                 values={filters}
                                 onChange={handleFilterChange}

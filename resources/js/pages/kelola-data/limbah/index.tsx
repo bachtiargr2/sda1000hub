@@ -15,7 +15,7 @@ import { DeleteDialog } from '@/components/toolbar/delete-dialog'
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Data Limbah',
+        title: 'Data Air Limbah',
         href: dataLimbahRoutes.index().url,
     },
 ]
@@ -83,16 +83,16 @@ export default function DataLimbahPage() {
 
     return (
         <AppLayout breadcrumbs={breadcrumbs}>
-            <Head title="Data Limbah" />
+            <Head title="Data Air Limbah" />
 
             <div className="flex h-full flex-1 flex-col gap-4 overflow-x-auto rounded-xl p-4">
                 <DataTable
-                    title="Data Limbah"
+                    title="Data Air Limbah"
                     desc="Data anggaran khusus kategori limbah"
                     columns={columns}
                     data={data_limbah.data}
                     toolbar={
-                        <TableToolbarActions title="Data Limbah" onCreate={() => setOpenCreate(true)}>
+                        <TableToolbarActions title="Data Air Limbah" onCreate={() => setOpenCreate(true)}>
                             <TableFilter
                                 fields={[
                                     { key: "pulau", label: "Nama Pulau", type: "text" },
@@ -114,7 +114,7 @@ export default function DataLimbahPage() {
                     nama={selected?.dokumen_nama}
                     path={selected?.dokumen_path}
                 />
-                <CreateDialog open={openCreate} onClose={() => setOpenCreate(false)} title="Data Limbah">
+                <CreateDialog open={openCreate} onClose={() => setOpenCreate(false)} title="Data Air Limbah">
                     <DataLimbahForm
                         pulauOptions={pulauOptions}
                         jenisDataOptions={jenisDataOptions}
@@ -124,7 +124,7 @@ export default function DataLimbahPage() {
                     />
                 </CreateDialog>
 
-                <UpdateSheet open={openEdit} onClose={() => setOpenEdit(false)} title="Edit Data Limbah">
+                <UpdateSheet open={openEdit} onClose={() => setOpenEdit(false)} title="Edit Data Air Limbah">
                     <DataLimbahForm
                         pulauOptions={pulauOptions}
                         jenisDataOptions={jenisDataOptions}

@@ -79,7 +79,7 @@ class DataLimbahController extends Controller
 
         DataAnggaran::create($validated);
 
-        return redirect()->route('kelola-data.limbah.index')->with('success', 'Data limbah berhasil ditambahkan');
+        return redirect()->route('kelola-data.limbah.index')->with('success', 'Data Air limbah berhasil ditambahkan');
     }
 
     public function update(Request $request, DataAnggaran $dataLimbah)
@@ -117,6 +117,6 @@ class DataLimbahController extends Controller
         $model = DataAnggaran::findOrFail($id);
         $model->delete();
 
-        return back()->with('success', 'Data limbah berhasil dihapus');
+        return back()->with('success', 'Data Air Limbah berhasil dihapus');
     }
 }

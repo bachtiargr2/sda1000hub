@@ -63,14 +63,14 @@ export default function DataLimbahForm({
                     url: submitRoute,
                     id: initialData.id,
                     data: formData,
-                    label: "Data Limbah",
+                    label: "Data Air Limbah",
                     onSuccess,
                 })
             } else {
                 createData({
                     url: "/kelola-data/limbah",
                     data: formData,
-                    label: "Data Limbah",
+                    label: "Data Air Limbah",
                     onSuccess: () => {
                         reset()
                         onSuccess?.()

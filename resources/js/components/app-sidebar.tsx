@@ -44,7 +44,7 @@ const mainNavItems: NavItem[] = [
                 href: air.index(),
             },
             {
-                title: 'Limbah',
+                title: 'Air Limbah',
                 href: limbah.index(),
             },
         ]
