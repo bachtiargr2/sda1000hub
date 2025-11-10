@@ -1,7 +1,5 @@
-import { useState, useTransition } from "react"
-import { router } from "@inertiajs/react"
-import { toast } from "sonner"
-import { TrashIcon, LoaderIcon } from "lucide-react"
+import { useTransition } from "react";
+import { LoaderIcon } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import {
@@ -12,16 +10,14 @@ import {
     DialogFooter,
     DialogHeader,
     DialogTitle,
-    DialogTrigger,
 } from "@/components/ui/dialog"
 import { deleteData } from "@/utils/delete"
 
 interface DeleteDialogProps extends React.ComponentPropsWithoutRef<typeof Dialog> {
-    items: number | number[]
-    url: string
-    label?: string
-    onSuccess?: () => void
-    showTrigger?: boolean
+    items: number | number[];
+    url: string;
+    label?: string;
+    onSuccess?: () => void;
 }
 
 export function DeleteDialog({
@@ -29,7 +25,6 @@ export function DeleteDialog({
     url,
     label = "item",
     onSuccess,
-    showTrigger = true,
     ...props
 }: DeleteDialogProps) {
     const [isPending, startTransition] = useTransition()
@@ -49,20 +44,12 @@ export function DeleteDialog({
 
     return (
         <Dialog {...props}>
-            {showTrigger && (
-                <DialogTrigger asChild>
-                    <Button variant="outline" size="sm">
-                        <TrashIcon className="mr-2 size-4" aria-hidden="true" />
-                        Delete
-                    </Button>
-                </DialogTrigger>
-            )}
             <DialogContent>
                 <DialogHeader>
-                    <DialogTitle>Are you absolutely sure?</DialogTitle>
+                    <DialogTitle>Apakah Anda benar-benar yakin?</DialogTitle>
                     <DialogDescription>
-                        This action cannot be undone. This will permanently delete{" "}
-                        <span className="font-medium">{label}</span> from our servers.
+                        Tindakan ini tidak dapat dibatalkan. Ini akan menghapus.{" "}
+                        <span className="font-medium">{label}</span> secara permanen.
                     </DialogDescription>
                 </DialogHeader>
                 <DialogFooter className="gap-2 sm:space-x-0">
@@ -77,7 +64,7 @@ export function DeleteDialog({
                         {isPending && (
                             <LoaderIcon className="mr-1.5 size-4 animate-spin" aria-hidden="true" />
                         )}
-                        Delete
+                        Hapus
                     </Button>
                 </DialogFooter>
             </DialogContent>

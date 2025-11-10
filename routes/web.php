@@ -8,6 +8,7 @@ use App\Http\Controllers\DataLimbahController;
 use App\Http\Controllers\DataAirController;
 use App\Http\Controllers\DokumenController;
 use App\Http\Controllers\UnitKerjaController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Laravel\Fortify\Features;
@@ -20,9 +21,12 @@ Route::get('/', function () {
 })->name('home');
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    // Route::get('dashboard', function () {
-    //     return Inertia::render('dashboard');
-    // })->name('dashboard');
+    Route::middleware('role:1')->group(function () {
+        Route::get('/users', [UserController::class, 'index'])->name('users.index');
+        Route::post('/users', [UserController::class, 'store'])->name('users.store');
+        Route::put('/users/{user}', [UserController::class, 'update'])->name('users.update');
+        Route::delete('/users/{user?}', [UserController::class, 'destroy'])->name('users.delete');
+    });
     Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::get('/master-data/pulau', [PulauController::class, 'index'])->name('pulau.index');

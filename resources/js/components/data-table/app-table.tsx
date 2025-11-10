@@ -28,6 +28,7 @@ interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
   toolbar?: React.ReactNode // ✅ Tambahkan ini
+  badge?: React.ReactNode
 }
 
 export function DataTable<TData, TValue>({
@@ -36,6 +37,7 @@ export function DataTable<TData, TValue>({
   columns,
   data,
   toolbar, // ✅ prop baru
+  badge,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = useState<SortingState>([])
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([])
@@ -67,6 +69,9 @@ export function DataTable<TData, TValue>({
 
         {/* ✅ Gunakan toolbar custom jika ada, kalau tidak pakai default */}
         {toolbar ?? <TableToolbarActions table={table} />}
+      </div>
+      <div>
+        {badge ?? ""}
       </div>
 
       <div className="overflow-hidden rounded-md border">

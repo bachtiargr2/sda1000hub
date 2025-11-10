@@ -62,19 +62,31 @@ export interface Status {
     status: number | any;
 }
 
-export interface Pulau {
+export interface PulauData {
     id: number;
     nama: string;
     kelurahan: string;
     kecamatan: string;
 }
 
+export interface Pulau {
+    data: PulauData[];
+}
+
+
+export interface Users {
+    id: number;
+    name: string;
+    email: string;
+    role_id: string;
+}
+
 export type JenisData = {
-  id: number
-  nama: string
-  deskripsi?: string
-  created_at?: string
-  updated_at?: string
+    id: number
+    nama: string
+    deskripsi?: string
+    created_at?: string
+    updated_at?: string
 }
 
 export interface UnitKerja {
@@ -83,29 +95,46 @@ export interface UnitKerja {
 }
 
 export type DataAnggaran = {
-  id: number
-  id_pulau: number
-  pulau: {
     id: number
-    nama: string
-  }
-  id_jenis_data: number
-  jenis_data: {
-    id: number
-    nama: string
-  }
-  id_kategori: number
-  tahun: number
-  dokumen_path?: string
-  dokumen_nama?: string
-  tanggal_upload?: string
-  status?: number
-  statusData?: {
-    id: number
-    nama: string
-  }
-  created_at?: string
-  updated_at?: string
-  tanggal_upload?: string
+    id_pulau: number
+    pulau: {
+        id: number
+        nama: string
+    }
+    id_jenis_data: number
+    jenis_data: {
+        id: number
+        nama: string
+    }
+    id_kategori: number
+    tahun: number
+    dokumen_path?: string
+    dokumen_nama?: string
+    tanggal_upload?: string
+    status?: number
+    statusData?: {
+        id: number
+        nama: string
+    }
+    created_at?: string
+    updated_at?: string
+    tanggal_upload?: string
 }
 
+export interface BaseEntity {
+    id: number | string
+    [key: string]: any
+}
+
+export interface TableActionHandlers<T> {
+    onEdit?: (item: T) => void
+    onDelete?: (item: T) => void
+}
+
+export interface FormDialogProps {
+    open: boolean;
+    title: string;
+    onClose: () => void;
+    onSubmit?: () => void;
+    children: React.ReactNode;
+}

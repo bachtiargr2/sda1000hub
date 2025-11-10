@@ -11,8 +11,9 @@ import { useState } from "react"
 import { PlusIcon } from "lucide-react"
 import PulauForm from "../forms/pulau-form"
 import pulau from "@/routes/pulau"
+import UsersForm from "../forms/users-form"
 
-export function CreatePulauDialog() {
+export function CreateUsersDialog({roleOptions}:any) {
     const [open, setOpen] = useState(false)
 
   return (
@@ -20,18 +21,18 @@ export function CreatePulauDialog() {
         <DialogTrigger asChild>
             <Button size="sm">
             <PlusIcon className="mr-2 size-4" aria-hidden="true" />
-                Tambah Data Pulau
+                Tambah User
             </Button>
         </DialogTrigger>
 
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Create pulau</DialogTitle>
+          <DialogTitle>Tambah user</DialogTitle>
           <DialogDescription>
-            Fill in the details below to create a new pulau.
+            Fill in the details below to create a new user.
           </DialogDescription>
         </DialogHeader>
-        <PulauForm submitRoute={pulau.store().url} onSuccess={() => setOpen(false)} />
+        <UsersForm roleOptions={roleOptions} submitRoute={pulau.store().url} onSuccess={() => setOpen(false)} />
       </DialogContent>
     </Dialog>
   )

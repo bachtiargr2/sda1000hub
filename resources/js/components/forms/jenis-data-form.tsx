@@ -12,103 +12,107 @@ import { updateData } from "@/utils/update"
 import { cn } from "@/lib/utils"
 
 type JenisDataFormProps = {
-  initialData?: { id?: number; nama?: string; deskripsi?: string }
-  onSuccess?: () => void
-  submitRoute: string
-  method?: "post" | "put"
+    initialData?: {
+        id?: number;
+        nama?: string;
+        deskripsi?: string
+    }
+    submitRoute: string
+    method?: "post" | "put"
+    onSuccess?: () => void
 }
 
 export default function JenisDataForm({
-  initialData,
-  onSuccess,
-  submitRoute,
-  method = "post",
+    initialData,
+    onSuccess,
+    submitRoute,
+    method = "post",
 }: JenisDataFormProps) {
-  const [isPending, startTransition] = useTransition()
-  const { data, setData, errors, reset, setError } = useForm({
-    nama: initialData?.nama ?? "",
-    deskripsi: initialData?.deskripsi ?? "",
-  })
-
-  const handleChange = (field: keyof typeof data, value: string) => {
-    setData(field, value)
-    if (errors[field]) setError(field, "")
-  }
-
-  const handleSubmit: FormEventHandler = (e) => {
-    e.preventDefault()
-    startTransition(() => {
-      if (method === "put" && initialData?.id) {
-        updateData({
-          url: submitRoute,
-          id: initialData.id,
-          data,
-          label: "Jenis Data",
-          onSuccess,
-        })
-      } else {
-        createData({
-          url: "/master-data/jenis-data",
-          data,
-          label: "Jenis Data",
-          onSuccess: () => {
-            reset()
-            onSuccess?.()
-          },
-        })
-      }
+    const [isPending, startTransition] = useTransition()
+    const { data, setData, errors, reset, setError } = useForm({
+        nama: initialData?.nama ?? "",
+        deskripsi: initialData?.deskripsi ?? "",
     })
-  }
 
-  return (
-    <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-      <div className={cn("flex flex-col gap-4", method === "put" && "px-4")}>
-        <div>
-          <Label className={errors.nama && "text-red-500"}>
-            Nama Jenis Data<span className="text-red-500">*</span>
-          </Label>
-          <Input
-            value={data.nama}
-            onChange={(e) => handleChange("nama", e.target.value)}
-            placeholder="Masukkan nama jenis data"
-            className={errors.nama && "border-red-500 placeholder:text-red-500"}
-          />
-          {errors.nama && <InputError message={errors.nama} />}
-        </div>
+    const handleChange = (field: keyof typeof data, value: string) => {
+        setData(field, value)
+        if (errors[field]) setError(field, "")
+    }
 
-        <div>
-          <Label className={errors.deskripsi && "text-red-500"}>Deskripsi</Label>
-          <Input
-            value={data.deskripsi}
-            onChange={(e) => handleChange("deskripsi", e.target.value)}
-            placeholder="Masukkan deskripsi"
-            className={errors.deskripsi && "border-red-500 placeholder:text-red-500"}
-          />
-          {errors.deskripsi && <InputError message={errors.deskripsi} />}
-        </div>
-      </div>
+    const handleSubmit: FormEventHandler = (e) => {
+        e.preventDefault()
+        startTransition(() => {
+            if (method === "put" && initialData?.id) {
+                updateData({
+                    url: submitRoute,
+                    id: initialData.id,
+                    data,
+                    label: "Jenis Data",
+                    onSuccess,
+                })
+            } else {
+                createData({
+                    url: "/master-data/jenis-data",
+                    data,
+                    label: "Jenis Data",
+                    onSuccess: () => {
+                        reset()
+                        onSuccess?.()
+                    },
+                })
+            }
+        })
+    }
 
-      {method === "post" ? (
-        <DialogFooter className="gap-2 pt-2 sm:space-x-0">
-          <DialogClose asChild>
-            <Button type="button" variant="outline">Cancel</Button>
-          </DialogClose>
-          <Button disabled={isPending}>
-            {isPending && <LoaderIcon className="mr-1.5 size-4 animate-spin" />}
-            Create
-          </Button>
-        </DialogFooter>
-      ) : (
-        <SheetFooter className="gap-2 pt-2 sm:space-x-0">
-          <SheetClose asChild>
-            <Button type="button" variant="outline">Cancel</Button>
-          </SheetClose>
-          <Button disabled={isPending}>
-            {isPending && <LoaderIcon className="mr-1.5 size-4 animate-spin" />}
-            Save
-          </Button>
-        </SheetFooter>
-      )}
-    </form>
-  )
+    return (
+        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+            <div className={cn("flex flex-col gap-4", method === "put" && "px-4")}>
+                <div>
+                    <Label className={errors.nama && "text-red-500"}>
+                        Nama Jenis Data<span className="text-red-500">*</span>
+                    </Label>
+                    <Input
+                        value={data.nama}
+                        onChange={(e) => handleChange("nama", e.target.value)}
+                        placeholder="Masukkan nama jenis data"
+                        className={errors.nama && "border-red-500 placeholder:text-red-500"}
+                    />
+                    {errors.nama && <InputError message={errors.nama} />}
+                </div>
+
+                <div>
+                    <Label className={errors.deskripsi && "text-red-500"}>Deskripsi</Label>
+                    <Input
+                        value={data.deskripsi}
+                        onChange={(e) => handleChange("deskripsi", e.target.value)}
+                        placeholder="Masukkan deskripsi"
+                        className={errors.deskripsi && "border-red-500 placeholder:text-red-500"}
+                    />
+                    {errors.deskripsi && <InputError message={errors.deskripsi} />}
+                </div>
+            </div>
+
+            {method === "post" ? (
+                <DialogFooter className="gap-2 pt-2 sm:space-x-0">
+                    <DialogClose asChild>
+                        <Button type="button" variant="outline">Cancel</Button>
+                    </DialogClose>
+                    <Button disabled={isPending}>
+                        {isPending && <LoaderIcon className="mr-1.5 size-4 animate-spin" />}
+                        Create
+                    </Button>
+                </DialogFooter>
+            ) : (
+                <SheetFooter className="gap-2 pt-2 sm:space-x-0">
+                    <SheetClose asChild>
+                        <Button type="button" variant="outline">Cancel</Button>
+                    </SheetClose>
+                    <Button disabled={isPending}>
+                        {isPending && <LoaderIcon className="mr-1.5 size-4 animate-spin" />}
+                        Save
+                    </Button>
+                </SheetFooter>
+            )}
+        </form>
+    )
 }

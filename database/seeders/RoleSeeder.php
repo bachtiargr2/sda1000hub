@@ -5,11 +5,11 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 
-class StatusSeeder extends Seeder
+class RoleSeeder extends Seeder
 {
     public function run(): void
     {
-        DB::table('statuses')->insert([
+        DB::table('roles')->insert([
             [ 'nama' => 'Admin' ],
             [ 'nama' => 'Operator' ],
         ]);

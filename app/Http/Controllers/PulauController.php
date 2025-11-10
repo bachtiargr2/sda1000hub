@@ -11,12 +11,27 @@ class PulauController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $pulau = MstPulau::orderBy('nama')->get();
+        $query = MstPulau::query();
+
+        if ($request->filled('nama')) {
+            $query->where('nama', 'like', "%{$request->nama}%");
+        }
+
+        if ($request->filled('longitude')) {
+            $query->where('longitude', 'like', "%{$request->longitude}%");
+        }
+
+        if ($request->filled('latitude')) {
+            $query->where('latitude', $request->latitude);
+        }
+
+        $pulau = $query->paginate(10)->withQueryString();
 
         return Inertia::render('master-data/pulau/index', [
             'pulau' => $pulau,
+            'filters' => $request->only(['nama', 'longitude', 'latitude']),
         ]);
     }
 

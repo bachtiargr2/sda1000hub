@@ -11,12 +11,23 @@ class JenisDataController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $jenisData = JenisData::orderBy('nama')->get();
+        $query = JenisData::query();
+
+        if ($request->filled('nama')) {
+            $query->where('nama', 'like', "%{$request->nama}%");
+        }
+
+        if ($request->filled('deskripsi')) {
+            $query->where('deskripsi', 'like', "%{$request->deskripsi}%");
+        }
+
+        $jenisData = $query->paginate(10)->withQueryString();
 
         return Inertia::render('master-data/jenis-data/index', [
             'jenis_data' => $jenisData,
+            'filters' => $request->only(['nama', 'deskripsi']),
         ]);
     }
 

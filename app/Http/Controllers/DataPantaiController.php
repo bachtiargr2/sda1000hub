@@ -13,10 +13,10 @@ use Illuminate\Support\Facades\Storage;
 
 class DataPantaiController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        // Hanya ambil data dengan kategori pantai
-        $dataPantai = DataAnggaran::with(['pulau', 'jenisData', 'kategori', 'statusData'])
+        $query = DataAnggaran::query();
+        $query->with(['pulau', 'jenisData', 'kategori', 'statusData'])
             ->where('id_kategori', 1)
             ->orderBy('tahun', 'desc')
             ->get()
@@ -27,11 +27,37 @@ class DataPantaiController extends Controller
                 return $item;
             });
 
+        if ($request->filled('pulau')) {
+            $query->whereHas('pulau', function ($q) use ($request) {
+                $q->where('nama', 'like', '%' . $request->pulau . '%');
+            });
+        }
+
+        if ($request->filled('dokumen_nama')) {
+            $query->where('dokumen_nama', 'like', "%{$request->dokumen_nama}%");
+        }
+
+        if ($request->filled('id_jenis_data')) {
+            $query->where('id_jenis_data', "{$request->id_jenis_data}");
+        }
+
+        if ($request->filled('tahun')) {
+            $query->where('tahun', "{$request->tahun}");
+        }
+
+        if ($request->filled('status')) {
+            $query->where('status', "{$request->status}");
+        }
+
+        $dataPantai = $query->paginate(10)->withQueryString();
+
+
         return Inertia::render('kelola-data/pantai/index', [
             'data_pantai' => $dataPantai,
             'pulauOptions' => MstPulau::all(['id', 'nama']),
             'jenisDataOptions' => JenisData::all(['id', 'nama']),
             'statusOptions' => Status::all(['id', 'nama']),
+            'filters' => $request->only(['pulau', 'dokumen_nama', 'id_jenis_data', 'tahun', 'status']),
         ]);
     }
 
@@ -91,10 +117,6 @@ class DataPantaiController extends Controller
 
     public function destroy(Request $request, $pantai = null)
     {
-        // $model = DataAnggaran::findOrFail($id);
-        // $model->delete();
-
-        // return back()->with('success', 'Data pantai berhasil dihapus');
         if ($pantai) {
             $model = DataAnggaran::findOrFail($pantai);
             $model->delete();

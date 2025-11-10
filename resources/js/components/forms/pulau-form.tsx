@@ -13,14 +13,14 @@ import { updateData } from "@/utils/update"
 
 type PulauFormProps = {
   initialData?: {
-    id?: number
-    nama?: string
-    longitude?: number | string
-    latitude?: number | string
-  }
-  onSuccess?: () => void
-  submitRoute: string
-  method?: "post" | "put"
+    id?: number;
+    nama?: string;
+    longitude?: number | string;
+    latitude?: number | string;
+  };
+  submitRoute: string;
+  method?: "post" | "put";
+  onSuccess?: () => void;
 }
 
 export default function PulauForm({
@@ -40,7 +40,7 @@ export default function PulauForm({
   const handleChange = (field: keyof typeof data, value: string) => {
     // Pastikan longitude & latitude selalu numeric (float) jika ada nilai
     if (field === "longitude" || field === "latitude") {
-      const parsed = value === "" ? "" : parseFloat(value)
+      const parsed: any = value === "" ? "" : parseFloat(value)
       setData(field, parsed)
     } else {
       setData(field, value)
@@ -60,7 +60,7 @@ export default function PulauForm({
           data,
           label: "Pulau",
           onSuccess: () => {
-            onSuccess?.()
+            onSuccess?.();
           },
         })
       } else {

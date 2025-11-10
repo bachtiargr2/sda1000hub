@@ -1,39 +1,20 @@
-import { ComponentType } from "react"
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from "@/components/ui/sheet"
-
-interface UpdateSheetProps extends React.ComponentPropsWithoutRef<typeof Sheet> {
-  title: string
-  description?: string
-  formComponent: ComponentType<any>
-  data?: any
-  submitRoute: string
-  method?: "post" | "put"
-  onSuccess?: () => void
-}
+import { FormDialogProps } from "@/types"
 
 export function UpdateSheet({
   title,
-  description,
-  formComponent: FormComponent,
-  data,
-  submitRoute,
-  method = "put",
-  onSuccess,
-  ...props
-}: UpdateSheetProps) {
+  open,
+  onClose,
+  children,
+}: FormDialogProps) {
   return (
-    <Sheet {...props}>
+    <Sheet open={open} onOpenChange={onClose}>
       <SheetContent className="flex flex-col gap-6 sm:max-w-md">
         <SheetHeader className="text-left">
           <SheetTitle>{title}</SheetTitle>
-          {description && <SheetDescription>{description}</SheetDescription>}
+          <SheetDescription>Perbarui data {title} dan simpan perubahan.</SheetDescription>
         </SheetHeader>
-        <FormComponent
-          initialData={data}
-          method={method}
-          submitRoute={submitRoute}
-          onSuccess={onSuccess}
-        />
+        {children}
       </SheetContent>
     </Sheet>
   )

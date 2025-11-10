@@ -180,15 +180,6 @@ export default function DataPantaiForm({
           </Select>
           {errors.status && <InputError message={errors.status} />}
         </div>
-
-        {/* <div>
-          <Label>Nama Dokumen</Label>
-          <Input
-            value={data.dokumen_nama}
-            onChange={(e) => handleChange("dokumen_nama", e.target.value)}
-            placeholder="Nama dokumen"
-          />
-        </div> */}
       </div>
 
       {method === "post" ? (

@@ -1,15 +1,14 @@
+import { FormEventHandler, useTransition } from "react"
+import { useForm } from "@inertiajs/react"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Button } from "@/components/ui/button"
-import { useForm } from "@inertiajs/react"
-import { FormEventHandler, useTransition } from "react"
 import { DialogClose, DialogFooter } from "@/components/ui/dialog"
-import { LoaderIcon } from "lucide-react"
 import { SheetClose, SheetFooter } from "@/components/ui/sheet"
-import InputError from "../input-error"
+import { LoaderIcon } from "lucide-react"
+import InputError from "@/components/input-error"
 import { createData } from "@/utils/create"
-import { updateData } from "@/utils/update"
-import { YearPicker } from "../year-picker"
+import { YearPicker } from "@/components/year-picker"
 import { updateDataWithFile } from "@/utils/update-with-file"
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from "../ui/select"
 import { cn } from "@/lib/utils"
@@ -41,7 +40,7 @@ export default function DataLimbahForm({
         dokumen_nama: initialData?.dokumen_nama ?? "",
         dokumen_path: initialData?.dokumen_path ?? "",
         dokumen_url: initialData?.dokumen_url ?? "",
-        dokumen: undefined,   // ← file object
+        dokumen: undefined,
         status: initialData?.status ?? "",
         _method: method === "put" ? "PUT" : "POST",
     })

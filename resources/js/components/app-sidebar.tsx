@@ -21,6 +21,8 @@ import air from '@/routes/kelola-data/air';
 import pulau from '@/routes/pulau';
 import jenisData from '@/routes/jenis-data';
 import unitKerja from '@/routes/unit-kerja';
+import users from '@/routes/users';
+// import users from '@/routes/user';
 
 const mainNavItems: NavItem[] = [
     {
@@ -64,7 +66,7 @@ const mainNavItems: NavItem[] = [
     },
     {
         title: 'User',
-        href: '#',
+        href: users.index(),
         icon: User,
     },
 ];

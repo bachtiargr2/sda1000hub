@@ -3,15 +3,14 @@ import { ColumnDef } from '@tanstack/react-table'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Button } from '@/components/ui/button'
 import { MoreHorizontal } from 'lucide-react'
-import { UpdateDataPantaiSheet } from '@/components/toolbar/update-data-pantai-sheet'
-import { DeleteDialog } from '@/components/toolbar/delete-dialog'
-import { useState } from 'react'
 import StatusColumn from '@/components/status-column'
-import { DownloadDialog } from '@/components/toolbar/download-dialog'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
 
-export const columns = (pulauOptions: any, jenisDataOptions:any, statusOptions:any) => {
-    const cols: ColumnDef<DataAnggaran>[] = [
+export const getColumns = (
+    onDownload: (item: DataAnggaran) => void,
+    onEdit: (item: DataAnggaran) => void,
+    onDelete: (item: DataAnggaran) => void,
+): ColumnDef<DataAnggaran>[] => [
     {
         id: 'select',
         header: ({ table }) => (
@@ -38,7 +37,7 @@ export const columns = (pulauOptions: any, jenisDataOptions:any, statusOptions:a
         accessorKey: 'dokumen_nama',
         header: 'Nama Dokumen',
         cell: ({ row }) => (
-            <div className="max-w-52 whitespace-normal break-words">
+            <div className="max-w-52 whitespace-normal wrap-break-word">
                 {row.getValue('dokumen_nama')}
             </div>
         )
@@ -48,51 +47,13 @@ export const columns = (pulauOptions: any, jenisDataOptions:any, statusOptions:a
         header: "Status",
         cell: ({ row }) => <StatusColumn status={row.original?.status} />
     },
-    // {
-    //     accessorKey: 'created_at',
-    //     header: 'Tanggal Upload',
-    //     cell: ({ row }) => {
-    //         if (!row.original.created_at) return '-'
-    //         const date = new Date(row.original.created_at)
-    //         return date.toLocaleDateString('id-ID', {
-    //             year: 'numeric',
-    //             month: 'long',
-    //             day: 'numeric',
-    //         })
-    //     },
-    // },
     {
         id: 'actions',
         cell: ({ row }) => {
-            const [showDownload, setShowDownload] = useState(false)
-            const [showUpdateSheet, setShowUpdateSheet] = useState(false)
-            const [showDelete, setShowDelete] = useState(false)
+            const item = row.original;
 
             return (
                 <>
-                    <DownloadDialog
-                        open={showDownload}
-                        onOpenChange={setShowDownload}
-                        nama={row.original?.dokumen_nama}
-                        path={row.original?.dokumen_path}
-                    />
-                    <UpdateDataPantaiSheet
-                        open={showUpdateSheet}
-                        onOpenChange={setShowUpdateSheet}
-                        pulauOptions={pulauOptions}
-                        jenisDataOptions={jenisDataOptions}
-                        statusOptions={statusOptions}
-                        data={row.original}
-                    />
-                    <DeleteDialog
-                        open={showDelete}
-                        onOpenChange={setShowDelete}
-                        items={row.original.id}
-                        url="/kelola-data/pantai"
-                        label={row.original.dokumen_nama || 'Data Pantai'}
-                        onSuccess={() => row.toggleSelected(false)}
-                        showTrigger={false}
-                    />
                     <DropdownMenu>
                         <DropdownMenuTrigger asChild>
                             <Button variant="ghost" className="h-8 w-8 p-0">
@@ -101,15 +62,15 @@ export const columns = (pulauOptions: any, jenisDataOptions:any, statusOptions:a
                             </Button>
                         </DropdownMenuTrigger>
                         <DropdownMenuContent align="end">
-                            <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                            <DropdownMenuLabel>Tindakan</DropdownMenuLabel>
                             <DropdownMenuSeparator />
-                            <DropdownMenuItem onClick={() => { setShowDownload(true) }}>
+                            <DropdownMenuItem onSelect={() => onDownload(item)}>
                                 Download
                             </DropdownMenuItem>
-                            <DropdownMenuItem onClick={() => { setShowUpdateSheet(true) }}>
+                            <DropdownMenuItem onSelect={() => onEdit(item)}>
                                 Edit
                             </DropdownMenuItem>
-                            <DropdownMenuItem onClick={() => { setShowDelete(true) }}>
+                            <DropdownMenuItem onSelect={() => onDelete(item)}>
                                 Delete
                             </DropdownMenuItem>
                         </DropdownMenuContent>
@@ -119,5 +80,3 @@ export const columns = (pulauOptions: any, jenisDataOptions:any, statusOptions:a
         },
     },
 ]
-return cols
-}

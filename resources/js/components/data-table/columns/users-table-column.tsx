@@ -1,21 +1,29 @@
-import { DataAnggaran } from '@/types'
+import { Users } from '@/types'
 import { ColumnDef } from '@tanstack/react-table'
-import { Checkbox } from '@/components/ui/checkbox'
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu'
 import { Button } from '@/components/ui/button'
 import { MoreHorizontal } from 'lucide-react'
-import StatusColumn from '@/components/status-column'
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
+import { Checkbox } from '@/components/ui/checkbox'
 
 export const getColumns = (
-    onDownload: (item: DataAnggaran) => void,
-    onEdit: (item: DataAnggaran) => void,
-    onDelete: (item: DataAnggaran) => void,
-): ColumnDef<DataAnggaran>[] => [
+    onEdit: (item: Users) => void,
+    onDelete: (item: Users) => void
+): ColumnDef<Users>[] => [
         {
             id: 'select',
             header: ({ table }) => (
                 <Checkbox
-                    checked={table.getIsAllPageRowsSelected() || (table.getIsSomePageRowsSelected() && 'indeterminate')}
+                    checked={
+                        table.getIsAllPageRowsSelected() ||
+                        (table.getIsSomePageRowsSelected() && 'indeterminate')
+                    }
                     onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
                     aria-label="Select all"
                 />
@@ -30,22 +38,17 @@ export const getColumns = (
             enableSorting: false,
             enableHiding: false,
         },
-        { accessorFn: row => row.pulau?.nama ?? '-', header: 'Pulau' },
-        { accessorFn: row => row.jenis_data?.nama ?? '-', header: 'Jenis Data' },
-        { accessorKey: 'tahun', header: 'Tahun' },
         {
-            accessorKey: 'dokumen_nama',
-            header: 'Nama Dokumen',
-            cell: ({ row }) => (
-                <div className="max-w-52 whitespace-normal wrap-break-word">
-                    {row.getValue('dokumen_nama')}
-                </div>
-            )
+            accessorKey: 'name',
+            header: 'Nama',
         },
         {
-            accessorKey: "status",
-            header: "Status",
-            cell: ({ row }) => <StatusColumn status={row.original?.status} />
+            accessorKey: 'email',
+            header: 'Email',
+        },
+        {
+            accessorKey: 'role.nama',
+            header: 'Role',
         },
         {
             id: 'actions',
@@ -64,9 +67,6 @@ export const getColumns = (
                             <DropdownMenuContent align="end">
                                 <DropdownMenuLabel>Tindakan</DropdownMenuLabel>
                                 <DropdownMenuSeparator />
-                                <DropdownMenuItem onSelect={() => onDownload(item)}>
-                                    Download
-                                </DropdownMenuItem>
                                 <DropdownMenuItem onSelect={() => onEdit(item)}>
                                     Edit
                                 </DropdownMenuItem>

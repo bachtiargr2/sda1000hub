@@ -55,7 +55,7 @@ export function YearPicker({
       <PopoverTrigger asChild>
         <Button
           variant="outline"
-          className="w-full justify-start gap-2 font-light"
+          className="w-full justify-start gap-2 font-light text-muted-foreground"
         >
           <Calendar className="h-4 w-4" />
           {value ? value : placeholder}
