@@ -10,9 +10,9 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { Button } from '@/components/ui/button'
 import { MoreHorizontal } from 'lucide-react'
-import { UpdatePulauSheet } from '@/components/toolbar/update-pulau-sheet'
+import { UpdateSheet } from '@/components/toolbar/update-sheet'
 import { useState } from 'react'
-import { DeleteDialog } from '@/components/toolbar/delete-pulau-dialog'
+import { DeleteDialog } from '@/components/toolbar/delete-dialog'
 import { Checkbox } from '@/components/ui/checkbox'
 import { UpdateUnitKerjaSheet } from '@/components/toolbar/update-unit-kerja-sheet'
 
