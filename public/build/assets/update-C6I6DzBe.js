@@ -1,1 +1,0 @@
-import{b as u}from"./app-CNkNMQ7T.js";import{t as r}from"./app-layout-C-wkOO4K.js";function m({url:a,id:t,data:o,label:e,onSuccess:s}){u.put(`${a}/${t}`,o,{onSuccess:()=>{r.success(`${e??"Data"} berhasil diperbarui`),s?.()},onError:()=>r.error("Gagal memperbarui data")})}export{m as u};
