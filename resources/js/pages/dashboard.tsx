@@ -46,7 +46,7 @@ export default function Dashboard() {
                                     preserveState: true,
                                     preserveScroll: true,
                                     replace: true,
-                                    only: ['document_chart', 'data_pantai', 'data_air_bersih', 'data_limbah'],
+                                    only: ['dokumen_data', 'data_pantai', 'data_air_bersih', 'data_limbah'],
                                 });
                             }}
                         >

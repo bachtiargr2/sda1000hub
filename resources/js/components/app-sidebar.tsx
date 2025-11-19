@@ -11,8 +11,8 @@ import {
     SidebarMenuItem,
 } from '@/components/ui/sidebar';
 import { dashboard } from '@/routes';
-import { type NavItem } from '@/types';
-import { Link } from '@inertiajs/react';
+import { SharedData, type NavItem } from '@/types';
+import { Link, usePage } from '@inertiajs/react';
 import { BookOpen, Folder, LayoutGrid, ClipboardList, Database, User, BriefcaseBusiness } from 'lucide-react';
 import AppLogo from './app-logo';
 import pantai from '@/routes/kelola-data/pantai';
@@ -29,23 +29,28 @@ const mainNavItems: NavItem[] = [
         title: 'Dashboard',
         href: dashboard(),
         icon: LayoutGrid,
+        role: ['Admin', 'Operator'],
     },
     {
         title: 'Kelola Data',
         href: '/kelola-data',
         icon: ClipboardList,
+        role: ['Admin', 'Operator'],
         subItems: [
             {
                 title: 'Pantai',
                 href: pantai.index(),
+                role: ['Admin', 'Operator'],
             },
             {
                 title: 'Air Bersih',
                 href: air.index(),
+                role: ['Admin', 'Operator'],
             },
             {
                 title: 'Air Limbah',
                 href: limbah.index(),
+                role: ['Admin', 'Operator'],
             },
         ]
     },
@@ -53,14 +58,17 @@ const mainNavItems: NavItem[] = [
         title: 'Master Data',
         href: '/master-data',
         icon: Database,
+        role: ['Admin', 'Operator'],
         subItems: [
             {
                 title: 'Pulau',
                 href: pulau.index(),
+                role: ['Admin', 'Operator'],
             },
             {
                 title: 'Jenis Data',
                 href: jenisData.index(),
+                role: ['Admin', 'Operator'],
             },
         ]
     },
@@ -68,23 +76,13 @@ const mainNavItems: NavItem[] = [
         title: 'User',
         href: users.index(),
         icon: User,
-    },
-];
-
-const footerNavItems: NavItem[] = [
-    {
-        title: 'Repository',
-        href: 'https://github.com/laravel/react-starter-kit',
-        icon: Folder,
-    },
-    {
-        title: 'Documentation',
-        href: 'https://laravel.com/docs/starter-kits#react',
-        icon: BookOpen,
+        role: ['Admin'],
     },
 ];
 
 export function AppSidebar() {
+    const page = usePage<SharedData>();
+    const { auth } = page.props;
     return (
         <Sidebar collapsible="icon" variant="sidebar">
             <SidebarHeader>
@@ -100,7 +98,7 @@ export function AppSidebar() {
             </SidebarHeader>
 
             <SidebarContent>
-                <NavMain items={mainNavItems} />
+                <NavMain items={mainNavItems} user={auth.user} />
             </SidebarContent>
 
             {/* <SidebarFooter>

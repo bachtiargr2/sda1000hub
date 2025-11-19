@@ -1,0 +1,1 @@
+import{b as i}from"./app-DRVFbe_g.js";import{t as r}from"./app-layout-BDronjO6.js";function m({url:a,id:t,data:o,label:e,onSuccess:s}){i.post(`${a}/${t}`,o,{onSuccess:()=>{r.success(`${e??"Data"} berhasil diperbarui`),s?.()},onError:()=>r.error("Gagal memperbarui data")})}export{m as u};

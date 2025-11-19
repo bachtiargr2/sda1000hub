@@ -1,13 +1,5 @@
 import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from 'recharts';
 
-// const data = [
-//   { name: 'Kajian dan DED', value: 25, color: '#0369a1' },
-//   { name: 'Dokumen Lingkungan', value: 20, color: '#f97316' },
-//   { name: 'RAB', value: 15, color: '#06b6d4' },
-//   { name: 'Gambar Desain', value: 15, color: '#0ea5e9' },
-//   { name: 'Kontrak', value: 15, color: '#16a34a' },
-//   { name: 'As Built Drawing', value: 10, color: '#ec4899' },
-// ];
 const COLORS = [
     '#0ea5e9', '#22c55e', '#f59e0b', '#ef4444', '#6366f1', '#14b8a6', '#e11d48', '#a855f7',
   ];

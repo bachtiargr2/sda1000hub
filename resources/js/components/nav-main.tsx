@@ -9,17 +9,23 @@ import {
     SidebarMenuSubItem,
 } from '@/components/ui/sidebar';
 import { resolveUrl } from '@/lib/utils';
-import { type NavItem } from '@/types';
+import { User, type NavItem } from '@/types';
 import { Link, usePage } from '@inertiajs/react';
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from '@/components/ui/collapsible';
 import { ChevronRight } from 'lucide-react';
 
-export function NavMain({ items = [] }: { items: NavItem[] }) {
+interface NavMainProps {
+    items: NavItem[];
+    user: User;
+}
+
+export function NavMain({ items = [], user }: NavMainProps) {
     const page = usePage();
+    const filteredMenu = items.filter(item => item.role?.includes(user.role))
 
     return (
         <SidebarMenu className="px-2 py-0">
-            {items.map((item) => (
+            {filteredMenu.map((item) => (
                 <>
                 {item.subItems && item.subItems.length > 0 ? (
                     <Collapsible 

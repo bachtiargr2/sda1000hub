@@ -43,23 +43,18 @@ export default function UsersForm({
   const handleSubmit: FormEventHandler = (e) => {
     e.preventDefault()
     startTransition(() => {
-      const formData = new FormData()
-      Object.entries(data).forEach(([key, value]) => {
-        if (value !== undefined && value !== null) formData.append(key, value)
-      })
-
       if (method === "put" && initialData?.id) {
         updateData({
           url: submitRoute,
           id: initialData.id,
-          data: formData,
+          data,
           label: "User",
           onSuccess,
         })
       } else {
         createData({
           url: "/users",
-          data: formData,
+          data,
           label: "User",
           onSuccess: () => {
             reset()
@@ -100,7 +95,7 @@ export default function UsersForm({
         </div>
         <div>
             <Label className={errors.password && "text-red-500"}>
-            Password<span className="text-red-500">*</span>
+            Password<span className={method === "post" ? "text-red-500" : "hidden"}>*</span>
             </Label>
             <Input
             value={data.password}
@@ -112,7 +107,7 @@ export default function UsersForm({
             {errors.password && <InputError message={errors.password} />}
         </div>
         <div>
-          <Label>Role</Label>
+          <Label>Role<span className="text-red-500">*</span></Label>
           <Select
                 value={data.role_id?.toString() ?? ""}
                 onValueChange={(value) => handleChange("role_id", Number(value))}
